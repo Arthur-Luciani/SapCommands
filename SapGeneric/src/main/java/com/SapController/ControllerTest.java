@@ -1,4 +1,4 @@
-package com.SapController.SapGeneric;
+package com.SapController;
 
 import SapGeneric.Keys;
 import SapGeneric.Sap;

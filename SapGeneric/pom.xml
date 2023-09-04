@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.SapController</groupId>
+
+	<groupId>com</groupId>
 	<artifactId>SapGeneric</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SapGeneric</name>
-	<description>Biblioteca para facilitar o desenvolvimento de automações de processos no SAP</description>
+	<description>Library to control SAP GUI</description>
 	<properties>
 		<java.version>17</java.version>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 	<dependencies>
 
-		<!-- Jacob, Lombok -->
 		<dependency>
 			<groupId>com.hynnet</groupId>
 			<artifactId>jacob</artifactId>
@@ -24,13 +26,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-
+		
 	</dependencies>
-
-	<build>
-		<plugins>
-
-		</plugins>
-	</build>
 
 </project>

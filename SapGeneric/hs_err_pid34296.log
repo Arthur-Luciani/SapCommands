@@ -1339,7 +1339,7 @@ j  SapGeneric.Standart.isExisting(Ljava/lang/String;)LErrorHandler/ErrorCodes;+1
 j  SapGeneric.Standart.isExisting(Ljava/lang/String;)LErrorHandler/ErrorCodes;+178
 j  SapGeneric.Standart.isExisting(Ljava/lang/String;)LErrorHandler/ErrorCodes;+178
 j  SapGeneric.Basic.setText(Ljava/lang/String;Ljava/lang/String;)V+5
-j  com.SapController.SapGeneric.ControllerTest.testOk()V+35
+j  com.SapController.ControllerTest.testOk()V+35
 j  com.SapController.SapGeneric.SapGenericApplication.main([Ljava/lang/String;)V+16
 v  ~StubRoutines::call_stub
 
