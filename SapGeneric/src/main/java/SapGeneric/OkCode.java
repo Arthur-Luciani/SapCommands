@@ -1,11 +1,8 @@
 package SapGeneric;
 
 import Conn.SapConn;
-import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Variant;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 public class OkCode{
 

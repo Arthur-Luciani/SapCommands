@@ -6,7 +6,6 @@ import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComException;
 import com.jacob.com.Variant;
-import lombok.NoArgsConstructor;
 
 
 /**
@@ -14,7 +13,6 @@ import lombok.NoArgsConstructor;
  * You should initialize it using {@link Conn.SapConn#getStandart(int)} method.
  * With this you can construct your own methods using Jacob library.
  */
-@NoArgsConstructor
 public class Standart {
 
     NumberConverter numberConverter = new NumberConverter();

@@ -2,12 +2,13 @@ package tests;
 
 
 import com.SapController.ControllerTest;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+
 
 public class testsClass{
 
     @Test
-    void firstTest(){
+    public void firstTest(){
         ControllerTest test = new ControllerTest();
         test.testMiro();
     }
