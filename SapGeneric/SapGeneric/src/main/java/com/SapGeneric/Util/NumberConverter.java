@@ -1,12 +1,6 @@
-package Utils;
+package com.SapGeneric.Util;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import java.lang.reflect.Type;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 
 @Component
 public class NumberConverter {
@@ -15,10 +9,8 @@ public class NumberConverter {
         if (value instanceof Integer){
             return String.valueOf(value);
         } else if (value instanceof Float) {
-            String strValue = String.format("%.2f", value);
+            String strValue = String.valueOf(value);
             return strValue.replace(".",",");
-        } else if (value instanceof  LocalDate) {
-            return ((LocalDate) value).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         }
         return null;
     }
@@ -34,10 +26,5 @@ public class NumberConverter {
         floatValue = floatValue.replace(",", ".");
         return Float.parseFloat(floatValue);
     }
-
-    public LocalDate getDate(String value){
-        return LocalDate.parse(value, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-    }
-
 
 }
