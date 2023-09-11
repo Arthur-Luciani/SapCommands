@@ -21,6 +21,7 @@ public class NumberConverter {
     }
 
     public int getInt(String value){
+        value = value.replace(".", "");
         return Integer.parseInt(value);
     }
 

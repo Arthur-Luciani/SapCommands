@@ -31,19 +31,19 @@ public class Standart {
     /**
      * Object used to control current session and simple SAP_GUI elements as TextFields
      */
-    ActiveXComponent session;
+    public ActiveXComponent session;
 
 
     /**
      * Parent session used to set others objects
      */
-    ActiveXComponent parentSession;
+    public ActiveXComponent parentSession;
 
 
     /**
      * Used as parameters in some methods
      */
-    Variant[] arg = new Variant[2];
+    public Variant[] arg = new Variant[2];
 
     //Regex para verificar qual é a wnd [0] ou [1]...
     public ErrorCodes isExisting(String id){
