@@ -32,7 +32,6 @@ public class Basic{
         standart.obj.setProperty("text", value);
     }
 
-
     /**
      * @param elementId GUI ID element
      * @return Float value from GUI element
@@ -46,6 +45,7 @@ public class Basic{
      * @param label GUI element
      * @param value Float value to put on GUI element
      */
+    @Deprecated
     public void setFloatText(String label, Float value){
         setText(label, numberConverter.getString(value));
     }
@@ -63,7 +63,33 @@ public class Basic{
      * @param label GUI ID element
      * @param value Int value to put on GUI element
      */
+    @Deprecated
     public void setIntText(String label, int value){
+        setText(label, numberConverter.getString(value));
+    }
+
+    /**
+     * @param elementId GUI ID element
+     * @return Long value from GUI ID element
+     */
+    public long getLongText(String elementId){
+        return numberConverter.getLong(getText(elementId));
+    }
+
+    /**
+     * @param label GUI ID element
+     * @param value Long value to put on GUI element
+     */
+    @Deprecated
+    public void setLongText(String label, long value){
+        setText(label, numberConverter.getString(value));
+    }
+
+    /**
+     * @param label GUI ID element
+     * @param value Any number value
+     */
+    public <T> void setNumberText(String label, T value){
         setText(label, numberConverter.getString(value));
     }
 
@@ -72,9 +98,6 @@ public class Basic{
      * @param id GUi ID element
      */
     public boolean isExisting(String id){
-        if (standart.isExisting(id).equals(ErrorCodes.OK)){
-            return true;
-        }
-        return false;
+        return standart.isExisting(id).equals(ErrorCodes.OK);
     }
 }

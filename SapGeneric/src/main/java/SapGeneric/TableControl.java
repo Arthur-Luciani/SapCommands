@@ -114,6 +114,7 @@ public class TableControl{
      * @param row Row in matrix of table
      * @param value Int value to put on cell
      */
+    @Deprecated
     public void setCellIntValue(String tableId, String columnName, int row, String value){
         setCellStringValue(tableId, columnName, row, numberConverter.getString(value));
     }
@@ -134,7 +135,28 @@ public class TableControl{
      * @param row Row in matrix of table
      * @param value Float value to put on cell
      */
+    @Deprecated
     public void setCellFloatValue(String tableId, String columnName, int row, float value){
+        setCellStringValue(tableId, columnName, row, numberConverter.getString(value));
+    }
+
+    /**
+     * @param tableId GUI element ID
+     * @param columnName Title to search
+     * @param row Row in matrix of table
+     * @return Long value of cell
+     */
+    public long getCellLongValue(String tableId, String columnName, int row){
+        return numberConverter.getLong(getCellStringValue(tableId, columnName, row));
+    }
+
+    /**
+     * @param tableId GUI element ID
+     * @param columnName Title to search
+     * @param row Row in matrix of table
+     * @param value Any type of number value to put in
+     */
+    public <T> void setCellNumberValue(String tableId, String columnName, int row, T value){
         setCellStringValue(tableId, columnName, row, numberConverter.getString(value));
     }
 
@@ -163,6 +185,33 @@ public class TableControl{
             currentObj.setProperty("selected", 1);
         else
             currentObj.setProperty("selected", 0);
+    }
+
+    /**
+     * @param tableId GUI element ID
+     * @param row Row to select
+     * @param option True or false
+     */
+    public void selectRow(String tableId, String row, Boolean option){
+        standart.isExisting(tableId);
+        standart.obj = new ActiveXComponent(this.standart.session.invoke("FindById", tableId).toDispatch());
+        ActiveXComponent currentObj = new ActiveXComponent(this.standart.obj.invoke("GetAbsoluteRow", row).toDispatch());
+        currentObj.setProperty("selected",option);
+    }
+
+    /**
+     * @param tableId GUI element ID
+     * @param column Column that contains searchTerm
+     * @param searchTerm Term to search
+     * @return First row that contains searchTerm, or -1 for false return
+     */
+    public int searchRowByValue(String tableId, String column, String searchTerm){
+        for (int i = 0; i < getTotalRows(tableId); i++) {
+            if (getCellStringValue(tableId, column, i).equals(searchTerm)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**

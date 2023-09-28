@@ -2,6 +2,7 @@ package Utils;
 
 
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -16,9 +17,15 @@ public class NumberConverter {
             return strValue.replace(".",",");
         } else if (value instanceof  LocalDate) {
             return ((LocalDate) value).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        } else if (value instanceof  Long) {
+            return String.valueOf(value);
+        } else if (value instanceof BigDecimal) {
+            ((BigDecimal) value).setScale(2);
+            return value.toString();
         }
         return null;
     }
+
 
     public int getInt(String value){
         value = value.replace(".", "");
@@ -33,7 +40,9 @@ public class NumberConverter {
         return Float.parseFloat(floatValue);
     }
 
-
+    public long getLong(String value){
+        return Long.parseLong(value);
+    }
 
     public String get3Float(float value){
         String str = String.format("%.3f", value);

@@ -67,6 +67,7 @@ public class GridControl{
      * @param row Row in matrix of Grid
      * @param value Int value to put on cell
      */
+    @Deprecated
     public void setInt(String gridId, String columnName, int row, int value){
         setText(gridId, columnName, row, numberConverter.getString(value));
     }
@@ -87,8 +88,60 @@ public class GridControl{
      * @param row Row in matrix of Grid
      * @param value Float value to put on cell
      */
+    @Deprecated
     public void setFloat(String gridId, String columnName, int row, float value){
         setText(gridId, columnName, row, numberConverter.getString(value));
+    }
+
+    /**
+     * @param gridId GUI ID element
+     * @param columnName Name collected in SAP script
+     * @param row Row in matrix of Grid
+     * @return Long value of cell
+     */
+    public long getLong(String gridId, String columnName, int row){
+        return numberConverter.getLong(getText(gridId, columnName, row));
+    }
+
+    /**
+     * @param gridId GUI ID element
+     * @param columnName Name collected in SAP script
+     * @param row Row in matrix of Grid
+     * @param value Long value to put on cell
+     */
+    @Deprecated
+    public void setLong(String gridId, String columnName, int row, long value){
+        setText(gridId, columnName, row, numberConverter.getString(value));
+    }
+
+    /**
+     * @param tableId GUI element ID
+     * @param columnName Title to search
+     * @param row Row in matrix of table
+     * @param value Any type of number value to put in
+     */
+    public <T> void setCellNumberValue(String tableId, String columnName, int row, T value){
+        setText(tableId, columnName, row, numberConverter.getString(value));
+    }
+
+    /**
+     * @param gridId GUI ID element
+     * Select all grid lines
+     */
+    public void selectAll(String gridId){
+        standart.isExisting(gridId);
+        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
+        standart.obj.invoke("SelectAll");
+    }
+
+    /**
+     * @param gridId GUI ID element
+     * @param row Row to select
+     */
+    public void selectRow(String gridId, int row){
+        standart.isExisting(gridId);
+        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
+        standart.obj.setProperty("SelectedRows", String.valueOf(row));
     }
 
     /**
