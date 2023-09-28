@@ -33,6 +33,13 @@ public class NumberConverter {
         return Float.parseFloat(floatValue);
     }
 
+
+
+    public String get3Float(float value){
+        String str = String.format("%.3f", value);
+        return str.replace(".",",");
+    }
+
     public LocalDate getDate(String value){
         return LocalDate.parse(value, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }

@@ -1,6 +1,7 @@
 package tests;
 
 
+import SapGeneric.Sap;
 import com.SapController.ControllerTest;
 import org.junit.Test;
 
@@ -9,7 +10,8 @@ public class testsClass{
 
     @Test
     public void firstTest(){
-        ControllerTest test = new ControllerTest();
-        test.testMiro();
+        Sap sap = new Sap();
+
+        sap.basic.isExisting("wnd[2]/usr/txtMESSTXT1");
     }
 }
