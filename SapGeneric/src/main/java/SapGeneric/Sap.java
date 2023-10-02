@@ -9,6 +9,8 @@ public class Sap {
     public OkCode okCode = new OkCode();
     public TableControl tableControl = new TableControl();
 
+    public UserArea userArea = new UserArea();
+
 
 
 }

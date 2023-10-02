@@ -19,7 +19,7 @@ public class Basic{
     public String getText(String elementId){
         standart.isExisting(elementId);
         standart.obj = new ActiveXComponent(standart.session.invoke("FindById", elementId).toDispatch());
-        return standart.obj.getPropertyAsString("text");// Test here
+        return standart.obj.getPropertyAsString("text");
     }
 
     /**

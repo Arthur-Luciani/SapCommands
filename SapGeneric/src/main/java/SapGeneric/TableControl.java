@@ -7,6 +7,7 @@ import com.jacob.com.ComException;
 import com.jacob.com.Dispatch;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.HashSet;
 
 public class TableControl{
 
@@ -205,9 +206,9 @@ public class TableControl{
      * @param searchTerm Term to search
      * @return First row that contains searchTerm, or -1 for false return
      */
-    public int searchRowByValue(String tableId, String column, String searchTerm){
+    public int searchRowByValue(String tableId, String column, HashSet<String> searchTerm){
         for (int i = 0; i < getTotalRows(tableId); i++) {
-            if (getCellStringValue(tableId, column, i).equals(searchTerm)){
+            if (searchTerm.contains(getCellStringValue(tableId, column, i))){
                 return i;
             }
         }
@@ -222,6 +223,11 @@ public class TableControl{
     public void pressCellButton(String tableId, String columnName, int row){
         ActiveXComponent currentObj = getCellTableControlObj(tableId, columnName, row);
         Dispatch.call(currentObj, "press");
+    }
+
+    public void setFocus(String tableId, String columnName, int row){
+        ActiveXComponent currentObj = getCellTableControlObj(tableId, columnName, row);
+        currentObj.invoke("SetFocus");
     }
 
 }

@@ -29,10 +29,12 @@ public class NumberConverter {
 
     public int getInt(String value){
         value = value.replace(".", "");
+        value = value.replace(" ", "");
         return Integer.parseInt(value);
     }
 
     public float getFloat(String value){
+        value = value.replace(" ", "");
         value = value.replace(".", "");
         value = value.replace(",", ".");
         String floatValue = String.format("%.2f", Float.valueOf(value));
@@ -41,6 +43,8 @@ public class NumberConverter {
     }
 
     public long getLong(String value){
+        value = value.replace(" ", "");
+        value = value.replace(".", "");
         return Long.parseLong(value);
     }
 

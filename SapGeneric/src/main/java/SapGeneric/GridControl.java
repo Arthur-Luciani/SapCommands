@@ -145,6 +145,22 @@ public class GridControl{
     }
 
     /**
+     * @param tableId GUI element ID
+     * @param column Name collected in SAP script
+     * @param searchTerm Term to search
+     * @return First row that contains searchTerm, or -1 for false return
+     */
+    public int searchRowByValue(String tableId, String column, String searchTerm){
+        for (int i = 0; i < getTotalRows(tableId); i++) {
+            if (getText(tableId, column, i).equals(searchTerm)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+    /**
      * @param gridId GUI ID element
      * @param columnName Name collected in SAP script
      * @param row Row in matrix of Grid
