@@ -5,9 +5,11 @@ import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
+@Service
 public class GridControl{
 
     private Standart standart = new SapConn().getStandart(0);

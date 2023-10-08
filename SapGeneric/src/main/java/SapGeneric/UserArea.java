@@ -4,7 +4,9 @@ import Conn.SapConn;
 import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Variant;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserArea {
 
     private Standart standart = new SapConn().getStandart(0);

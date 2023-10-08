@@ -6,6 +6,8 @@ import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComException;
 import com.jacob.com.Variant;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 /**
@@ -13,9 +15,11 @@ import com.jacob.com.Variant;
  * You should initialize it using {@link Conn.SapConn#getStandart(int)} method.
  * With this you can construct your own methods using Jacob library.
  */
+
 public class Standart {
 
-    NumberConverter numberConverter = new NumberConverter();
+    @Autowired
+    NumberConverter numberConverter;
 
     public Standart(ActiveXComponent initSess) {
         this.session = new ActiveXComponent(initSess.invoke("Children",0).toDispatch());

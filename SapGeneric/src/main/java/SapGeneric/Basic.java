@@ -4,11 +4,16 @@ import Conn.SapConn;
 import ErrorHandler.ErrorCodes;
 import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Basic{
 
+    @Autowired
     Standart standart = new SapConn().getStandart(0);
 
+    @Autowired
     NumberConverter numberConverter = new NumberConverter();
 
 

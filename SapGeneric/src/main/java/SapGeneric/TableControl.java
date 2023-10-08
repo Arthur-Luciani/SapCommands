@@ -5,10 +5,13 @@ import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComException;
 import com.jacob.com.Dispatch;
+import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashSet;
 
+@Service
 public class TableControl{
 
     /*

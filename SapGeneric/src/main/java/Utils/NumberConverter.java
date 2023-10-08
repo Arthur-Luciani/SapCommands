@@ -1,12 +1,15 @@
 package Utils;
 
 
+import org.springframework.stereotype.Service;
+
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
+@Service
 public class NumberConverter {
 
     public <T> String getString(T value){

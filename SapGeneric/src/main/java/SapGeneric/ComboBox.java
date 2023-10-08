@@ -2,7 +2,9 @@ package SapGeneric;
 
 import Conn.SapConn;
 import com.jacob.activeX.ActiveXComponent;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ComboBox{
     private Standart standart = new SapConn().getStandart(0);
 

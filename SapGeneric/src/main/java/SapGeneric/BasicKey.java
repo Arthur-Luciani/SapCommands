@@ -3,7 +3,9 @@ package SapGeneric;
 import Conn.SapConn;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BasicKey {
     Standart standart = new SapConn().getStandart(0);
 
