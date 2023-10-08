@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 
-class Va01Id{
-    public static String userAreaUnidadeVendida = "wnd[1]/usr";
-}
+
 
 
 public class testsClass{
