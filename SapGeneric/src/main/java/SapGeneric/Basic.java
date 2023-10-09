@@ -14,7 +14,7 @@ public class Basic{
     Standart standart;
 
     @Autowired
-    NumberConverter numberConverter = new NumberConverter();
+    NumberConverter numberConverter;
 
 
     /**

@@ -3,11 +3,13 @@ package SapGeneric;
 import Conn.SapConn;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BasicKey {
-    Standart standart = new SapConn().getStandart(0);
+    @Autowired
+    Standart standart;
 
     /**
      * @param value Value to send

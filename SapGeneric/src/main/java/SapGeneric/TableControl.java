@@ -5,6 +5,7 @@ import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComException;
 import com.jacob.com.Dispatch;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -19,9 +20,11 @@ public class TableControl{
             -ComboBoxSelection
      */
 
-    private Standart standart = new SapConn().getStandart(0);
+    @Autowired
+    private Standart standart;
 
-    private NumberConverter numberConverter = new NumberConverter();
+    @Autowired
+    private NumberConverter numberConverter;
 
     /**
      * Returns index of column

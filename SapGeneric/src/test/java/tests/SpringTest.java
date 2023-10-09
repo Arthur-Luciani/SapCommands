@@ -32,6 +32,11 @@ public class SpringTest {
         assertThat(sap.basic).isNotNull();
     }
 
+    @Test
+    public void usagesTest(){
+        sap.okCode.setOkCode("/nVA03");
+    }
+
 
 
 
