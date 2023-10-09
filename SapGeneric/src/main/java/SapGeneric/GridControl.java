@@ -5,13 +5,18 @@ import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
+@Service
 public class GridControl{
 
-    private Standart standart = new SapConn().getStandart(0);
-    private NumberConverter numberConverter = new NumberConverter();
+    @Autowired
+    private Standart standart;
+    @Autowired
+    private NumberConverter numberConverter;
 
     /**
      * @param gridId GUI ID element

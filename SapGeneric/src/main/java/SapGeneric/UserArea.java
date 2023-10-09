@@ -4,12 +4,17 @@ import Conn.SapConn;
 import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Variant;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserArea {
 
-    private Standart standart = new SapConn().getStandart(0);
+    @Autowired
+    private Standart standart;
 
-    private NumberConverter numberConverter = new NumberConverter();
+    @Autowired
+    private NumberConverter numberConverter;
 
     /**
      * @param areaId GUI element ID
