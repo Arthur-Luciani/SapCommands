@@ -28,9 +28,7 @@ public class NumberConverter {
 
 
     public int getInt(String value){
-        value = value.replace(".", "");
-        value = value.replace(" ", "");
-        return Integer.parseInt(value);
+        return  (int) getFloat(value);
     }
 
     public float getFloat(String value){

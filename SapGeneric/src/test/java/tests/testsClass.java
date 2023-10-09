@@ -5,6 +5,7 @@ import Conn.SapConn;
 import SapGeneric.Keys;
 import SapGeneric.Sap;
 import SapGeneric.Standart;
+import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import org.junit.Test;
 
@@ -24,8 +25,11 @@ public class testsClass{
 
         Sap sap = new Sap();
 
-        int a = sap.tableControl.searchRowByValue(tblId, "TpC.", new HashSet<>(Arrays.asList("ICVA")));
-        System.out.println(a);
+        NumberConverter converter = new NumberConverter();
+
+        sap.okCode.setOkCode("/nVA03");
+
+        System.out.println(converter.getInt("12,93654600"));
 
     }
 
