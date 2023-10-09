@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class Basic{
 
     @Autowired
-    Standart standart = new SapConn().getStandart(0);
+    Standart standart;
 
     @Autowired
     NumberConverter numberConverter = new NumberConverter();

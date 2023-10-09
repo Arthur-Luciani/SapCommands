@@ -3,11 +3,11 @@ package SapGeneric;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+@Service
 public class Sap {
 
-
-    public Basic basic = new Basic();
+    @Autowired
+    public Basic basic;
 
     public BasicKey basicKey;
 
@@ -15,6 +15,7 @@ public class Sap {
 
     public GridControl gridControl;
 
+    @Autowired
     public OkCode okCode;
 
     public TableControl tableControl;
