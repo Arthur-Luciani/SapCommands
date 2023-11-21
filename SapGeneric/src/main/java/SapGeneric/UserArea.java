@@ -7,6 +7,8 @@ import com.jacob.com.Variant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class UserArea {
 
@@ -182,6 +184,28 @@ public class UserArea {
      */
     public long getLong(String areaId, int column, int row){
         return numberConverter.getLong(getText(areaId, column, row));
+    }
+
+    /**
+     * @param areaId GUI element ID
+     * @param row Row to select
+     */
+    public void selectRow(String areaId, int row) {
+        this.standart.isExisting(areaId);
+        this.standart.obj = new ActiveXComponent(this.standart.session.invoke("FindById", areaId).toDispatch());
+        this.standart.obj.setProperty("SelectedRows", String.valueOf(row));
+    }
+
+    /**
+     * @param areaId GUI element ID
+     * @param rows Rows to select
+     */
+    public void selectRows(String areaId, ArrayList<Integer> rows){
+        standart.isExisting(areaId);
+        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", areaId).toDispatch());
+        String arg = rows.toString();
+        arg = arg.replace("[[]]","" );
+        standart.obj.setProperty("SelectedRows", arg);
     }
 
     /**

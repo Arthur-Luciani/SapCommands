@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -23,8 +24,10 @@ public class NumberConverter {
         } else if (value instanceof  Long) {
             return String.valueOf(value);
         } else if (value instanceof BigDecimal) {
-            ((BigDecimal) value).setScale(2);
-            return value.toString();
+             String strValue = ((BigDecimal) value).setScale(2, RoundingMode.CEILING).toString();
+             return strValue.replace(".", ",");
+        } else if (value instanceof String) {
+            return String.valueOf(value);
         }
         return null;
     }

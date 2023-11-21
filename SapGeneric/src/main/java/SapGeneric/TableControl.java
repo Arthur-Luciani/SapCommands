@@ -1,9 +1,7 @@
 package SapGeneric;
 
-import Conn.SapConn;
 import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
-import com.jacob.com.ComException;
 import com.jacob.com.Dispatch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -179,6 +177,12 @@ public class TableControl{
         currentObj.setProperty("value", value);
     }
 
+    public void setCellComboBoxKey(String tableId, String columnName, int row, String key){
+        standart.isExisting(tableId);
+        ActiveXComponent currentObj = getCellTableControlObj(tableId, columnName, row);
+        currentObj.setProperty("key", key);
+    }
+
     /**
      * @param tableId GUI element ID
      * @param columnName Title to search
@@ -199,7 +203,7 @@ public class TableControl{
      * @param row Row to select
      * @param option True or false
      */
-    public void selectRow(String tableId, String row, Boolean option){
+    public void selectRow(String tableId, int row, Boolean option){
         standart.isExisting(tableId);
         standart.obj = new ActiveXComponent(this.standart.session.invoke("FindById", tableId).toDispatch());
         ActiveXComponent currentObj = new ActiveXComponent(this.standart.obj.invoke("GetAbsoluteRow", row).toDispatch());

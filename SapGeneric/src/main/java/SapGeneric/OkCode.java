@@ -1,6 +1,5 @@
 package SapGeneric;
 
-import Conn.SapConn;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Variant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class OkCode{
 
     @Autowired
-    Standart standart;
+    public Standart standart;
 
     /**
      * @param value Transaction name

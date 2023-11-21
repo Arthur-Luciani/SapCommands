@@ -1,10 +1,14 @@
 package SapGeneric;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+
+@Component
 public class Sap {
+
+    @Autowired
+    public Standart standart;
 
     @Autowired
     public Basic basic;
@@ -22,5 +26,8 @@ public class Sap {
     public TableControl tableControl;
     @Autowired
     public UserArea userArea;
+
+    @Autowired
+    public Tree tree;
 
 }

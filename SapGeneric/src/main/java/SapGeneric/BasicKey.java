@@ -3,6 +3,7 @@ package SapGeneric;
 import Conn.SapConn;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
+import com.jacob.com.Variant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,5 +59,6 @@ public class BasicKey {
         standart.obj = new ActiveXComponent(standart.session.invoke("FindById", elementId).toDispatch());
         Dispatch.call(standart.obj, "Press");
     }
+
 
 }

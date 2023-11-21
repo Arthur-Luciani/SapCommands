@@ -13,11 +13,13 @@ public class SapConn {
         Dispatch ROTEntry;
         Variant ScriptEngine;
         System.setProperty("jacob.debug", "true");
-        ComThread.InitSTA();
+        ComThread.InitSTA(true);
 
         SAPROTWr = new ActiveXComponent("SapROTWr.SapROTWrapper");
 
         ROTEntry = SAPROTWr.invoke("GetROTEntry", "SAPGUI").toDispatch();
+
+
         ScriptEngine = Dispatch.call(ROTEntry, "GetScriptingEngine");
         GUIApp = new ActiveXComponent(ScriptEngine.toDispatch());
 

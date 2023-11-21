@@ -1,15 +1,15 @@
 package SapGeneric;
 
-import Conn.SapConn;
 import ErrorHandler.ErrorCodes;
 import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class Basic{
-
     @Autowired
     Standart standart;
 
@@ -90,12 +90,26 @@ public class Basic{
         setText(label, numberConverter.getString(value));
     }
 
+    public BigDecimal getBigDecimalText(String elementId){
+        return new BigDecimal(getText(elementId).replace(".", "").replace(",", "."));
+    }
+
     /**
      * @param label GUI ID element
      * @param value Any number value
      */
     public <T> void setNumberText(String label, T value){
         setText(label, numberConverter.getString(value));
+    }
+
+    /**
+     * @param elementId GUI ID element
+     * @param option Select option
+     */
+    public void select(String elementId, Boolean option){
+        standart.isExisting(elementId);
+        standart.obj = new ActiveXComponent(this.standart.session.invoke("FindById", elementId).toDispatch());
+        standart.obj.setProperty("selected", option);
     }
 
     /**

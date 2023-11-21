@@ -1,6 +1,5 @@
 package SapGeneric;
 
-import Conn.SapConn;
 import com.jacob.activeX.ActiveXComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +21,16 @@ public class ComboBox{
             standart.obj.invoke("SetKeySpace");
         } else{
             standart.obj.setProperty("value", item2Select);
+        }
+    }
+
+    public void selectKey(String cbId, String key){
+        standart.isExisting(cbId);
+        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", cbId).toDispatch());
+        if (key.isBlank()){
+            standart.obj.invoke("SetKeySpace");
+        } else {
+            standart.obj.setProperty("value", key);
         }
     }
 

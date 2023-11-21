@@ -8,6 +8,7 @@ import com.jacob.com.Variant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 @Service
@@ -140,16 +141,6 @@ public class GridControl{
     }
 
     /**
-     * @param gridId GUI ID element
-     * @param row Row to select
-     */
-    public void selectRow(String gridId, int row){
-        standart.isExisting(gridId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
-        standart.obj.setProperty("SelectedRows", String.valueOf(row));
-    }
-
-    /**
      * @param tableId GUI element ID
      * @param column Name collected in SAP script
      * @param searchTerm Term to search
@@ -162,6 +153,24 @@ public class GridControl{
             }
         }
         return -1;
+    }
+
+    /**
+     * @param gridId GUI ID element
+     * @param row Rows to select
+     */
+    public void selectRow(String gridId, int row) {
+        this.standart.isExisting(gridId);
+        this.standart.obj = new ActiveXComponent(this.standart.session.invoke("FindById", gridId).toDispatch());
+        this.standart.obj.setProperty("SelectedRows", String.valueOf(row));
+    }
+
+    public void selectRow(String gridId, ArrayList<Integer> rows){
+        standart.isExisting(gridId);
+        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
+        String arg = rows.toString();
+        arg = arg.replace("[[]]","" );
+        standart.obj.setProperty("SelectedRows", arg);
     }
 
 
