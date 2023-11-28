@@ -28,6 +28,8 @@ public class SapConn {
 
         Obj = new ActiveXComponent(Session.invoke("FindById", "wnd[0]/tbar[0]/okcd").toDispatch());
         Obj.setProperty("Text", "/n");
+        
+
         return Session;
 
     }

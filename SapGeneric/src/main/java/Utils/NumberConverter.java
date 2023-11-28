@@ -28,6 +28,8 @@ public class NumberConverter {
              return strValue.replace(".", ",");
         } else if (value instanceof String) {
             return String.valueOf(value);
+        } else if (value instanceof Short) {
+            return String.valueOf(value);
         }
         return null;
     }
