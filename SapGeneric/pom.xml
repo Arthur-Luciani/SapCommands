@@ -11,7 +11,7 @@
 
 	<groupId>com.SapCommands</groupId>
 	<artifactId>SapGeneric</artifactId>
-	<version>v-2.1</version>
+	<version>v-2.2</version>
 	<name>SapGeneric</name>
 	<description>Library to control SAP GUI</description>
 

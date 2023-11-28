@@ -21,6 +21,7 @@ public class OkCode{
         standart.obj = new ActiveXComponent(standart.session.invoke("FindByName", standart.arg).toDispatch());
         standart.obj.setProperty("text", value);
         standart.session.invoke("sendVKey", 0);
+        standart.parentSession.invoke("LockSessionUI");
     }
 
 

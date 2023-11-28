@@ -1,12 +1,15 @@
 package SapGeneric;
 
+import Conn.SapConn;
 import ErrorHandler.ErrorCodes;
 import ErrorHandler.SapErrorHandler;
 import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComException;
 import com.jacob.com.Variant;
+import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
  * With this you can construct your own methods using Jacob library.
  */
 
+@Component
 public class Standart {
 
     @Autowired

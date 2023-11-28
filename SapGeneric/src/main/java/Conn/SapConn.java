@@ -5,32 +5,35 @@ import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComThread;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
+import org.springframework.boot.web.servlet.server.Session;
 
 public class SapConn {
 
-    public ActiveXComponent getSession(ActiveXComponent Session, int sessionNumber) throws InterruptedException {
-        ActiveXComponent SAPROTWr, GUIApp, Connection, Obj;
+    public ActiveXComponent getSession(ActiveXComponent MainSession, int sessionNumber) throws InterruptedException {
+        ActiveXComponent SAPROTWr, GUIApp, Connection, Obj, Session;
         Dispatch ROTEntry;
         Variant ScriptEngine;
         System.setProperty("jacob.debug", "true");
         ComThread.InitSTA(true);
-
         SAPROTWr = new ActiveXComponent("SapROTWr.SapROTWrapper");
-
         ROTEntry = SAPROTWr.invoke("GetROTEntry", "SAPGUI").toDispatch();
-
 
         ScriptEngine = Dispatch.call(ROTEntry, "GetScriptingEngine");
         GUIApp = new ActiveXComponent(ScriptEngine.toDispatch());
 
         Connection = new ActiveXComponent(GUIApp.invoke("Children", 0).toDispatch());
-        Session = new ActiveXComponent(Connection.invoke("Children", sessionNumber).toDispatch());
+        MainSession = new ActiveXComponent(Connection.invoke("Children", sessionNumber).toDispatch());
 
-        Obj = new ActiveXComponent(Session.invoke("FindById", "wnd[0]/tbar[0]/okcd").toDispatch());
-        Obj.setProperty("Text", "/n");
-        
+        Session = new ActiveXComponent(MainSession.invoke("Children",0).toDispatch());
 
-        return Session;
+        try {
+            new ActiveXComponent(Connection.invoke("Children",1).toDispatch());
+        } catch (Exception e) {
+            MainSession.invoke("CreateSession");
+        }
+        MainSession.invoke("LockSessionUI");
+
+        return MainSession;
 
     }
 
@@ -44,7 +47,10 @@ public class SapConn {
         return new Standart(session){
 
         };
+    }
 
+    public void unlock(ActiveXComponent Session) {
+        Session.invoke("UnlockSessionUI");
     }
 
 
