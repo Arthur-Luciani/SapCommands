@@ -1,6 +1,5 @@
 package SapGeneric;
 
-import Conn.SapConn;
 import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Variant;

@@ -60,5 +60,11 @@ public class BasicKey {
         Dispatch.call(standart.obj, "Press");
     }
 
+    public void setFocus(String elementId){
+        standart.isExisting(elementId);
+        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", elementId).toDispatch());
+        Dispatch.call(standart.obj, "setFocus");
+    }
+
 
 }

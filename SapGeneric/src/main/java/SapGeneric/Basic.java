@@ -13,6 +13,10 @@ public class Basic{
     @Autowired
     Standart standart;
 
+    public void setStandart(Standart standart) {
+        this.standart = standart;
+    }
+
     @Autowired
     NumberConverter numberConverter;
 

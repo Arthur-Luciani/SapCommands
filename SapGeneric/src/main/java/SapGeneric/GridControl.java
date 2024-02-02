@@ -190,4 +190,36 @@ public class GridControl{
         standart.obj.invoke("ModifyCheckBox", arg);
     }
 
+    public void insertRow(String gridId, int rowNumber) {
+        standart.isExisting(gridId);
+        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
+        standart.obj.invoke("insertRows", String.valueOf(rowNumber));
+    }
+
+    public void deleteRow(String gridId, int rowNumber) {
+        standart.isExisting(gridId);
+        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
+        standart.obj.invoke("deleteRows", String.valueOf(rowNumber));
+    }
+
+    public void pressToolBarBtn (String gridId, int btn) {
+        standart.isExisting(gridId);
+        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
+        standart.obj.invoke("pressToolbarButton", String.valueOf(btn));
+    }
+
+    public void clearSelection(String gridId) {
+        standart.isExisting(gridId);
+        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
+        standart.obj.invoke("ClearSelection");
+    }
+
+    public void clickCell(String gridId, int row){
+        standart.isExisting(gridId);
+        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
+        standart.obj.setProperty("CurrentCellRow", row);
+    }
+
+
+
 }

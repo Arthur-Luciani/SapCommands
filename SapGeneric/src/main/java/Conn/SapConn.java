@@ -5,7 +5,6 @@ import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComThread;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
-import org.springframework.boot.web.servlet.server.Session;
 
 public class SapConn {
 
@@ -15,6 +14,7 @@ public class SapConn {
         Variant ScriptEngine;
         System.setProperty("jacob.debug", "true");
         ComThread.InitSTA(true);
+
         SAPROTWr = new ActiveXComponent("SapROTWr.SapROTWrapper");
         ROTEntry = SAPROTWr.invoke("GetROTEntry", "SAPGUI").toDispatch();
 
@@ -22,17 +22,28 @@ public class SapConn {
         GUIApp = new ActiveXComponent(ScriptEngine.toDispatch());
 
         Connection = new ActiveXComponent(GUIApp.invoke("Children", 0).toDispatch());
-        MainSession = new ActiveXComponent(Connection.invoke("Children", sessionNumber).toDispatch());
+        Session = new ActiveXComponent(Connection.invoke("Children",0).toDispatch());
 
-        Session = new ActiveXComponent(MainSession.invoke("Children",0).toDispatch());
+        boolean isSessionSet = false;
+        do {
+            try {
+                MainSession = new ActiveXComponent(Connection.invoke("Children", sessionNumber).toDispatch());
+                //MainSession.invoke("ClearErrorList");
+                System.out.println(MainSession.getPropertyAsString("Name"));
+                System.out.println("Response time " + MainSession.getPropertyAsComponent("Info").getPropertyAsInt("ResponseTime"));
+                System.out.println("Group " + MainSession.getPropertyAsComponent("Info").getPropertyAsString("Group"));
+                System.out.println("Flush queue " + MainSession.getPropertyAsComponent("Info").getPropertyAsInt("Flushes"));
+                System.out.println("IsSlow " + MainSession.getPropertyAsComponent("Info").getPropertyAsBoolean("IsLowSpeedConnection"));
 
-        try {
-            new ActiveXComponent(Connection.invoke("Children",1).toDispatch());
-        } catch (Exception e) {
-            MainSession.invoke("CreateSession");
-        }
-        MainSession.invoke("LockSessionUI");
+                new ActiveXComponent(Connection.invoke("Children", sessionNumber + 1).toDispatch());//Create extra session for user
+                isSessionSet = true;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                Session.invoke("CreateSession");
 
+                Thread.sleep(1000);
+            }
+        } while (!isSessionSet);
         return MainSession;
 
     }
@@ -49,8 +60,10 @@ public class SapConn {
         };
     }
 
-    public void unlock(ActiveXComponent Session) {
-        Session.invoke("UnlockSessionUI");
+    public void disconnect(ActiveXComponent Session) {
+        ComThread.Release();
+        ComThread.quitMainSTA();
+
     }
 
 
