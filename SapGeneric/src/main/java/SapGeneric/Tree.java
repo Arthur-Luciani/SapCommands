@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class Tree {
     @Autowired
-    Standart standart;
+    SapMessenger sapMessenger;
     @Autowired
     NumberConverter numberConverter;
 
@@ -20,8 +20,8 @@ public class Tree {
      * @return ActiveXComponent of NodeKeyValues
      */
     private ActiveXComponent getTree(String treeId) {
-        standart.isExisting(treeId);
-        return new ActiveXComponent(standart.session.invoke("FindById", treeId).toDispatch());
+        sapMessenger.isExisting(treeId);
+        return new ActiveXComponent(sapMessenger.session.invoke("FindById", treeId).toDispatch());
     }
 
     /**

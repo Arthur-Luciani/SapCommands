@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ComboBox{
     @Autowired
-    private Standart standart;
+    private SapMessenger sapMessenger;
 
     /**
      * Select some option in combobox
@@ -15,22 +15,22 @@ public class ComboBox{
      * @param item2Select Select option
      */
     public void select(String cbId, String item2Select){
-        standart.isExisting(cbId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", cbId).toDispatch());
+        sapMessenger.isExisting(cbId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", cbId).toDispatch());
         if (item2Select.isBlank()){
-            standart.obj.invoke("SetKeySpace");
+            sapMessenger.obj.invoke("SetKeySpace");
         } else{
-            standart.obj.setProperty("value", item2Select);
+            sapMessenger.obj.setProperty("value", item2Select);
         }
     }
 
     public void selectKey(String cbId, String key){
-        standart.isExisting(cbId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", cbId).toDispatch());
+        sapMessenger.isExisting(cbId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", cbId).toDispatch());
         if (key.isBlank()){
-            standart.obj.invoke("SetKeySpace");
+            sapMessenger.obj.invoke("SetKeySpace");
         } else {
-            standart.obj.setProperty("value", key);
+            sapMessenger.obj.setProperty("value", key);
         }
     }
 

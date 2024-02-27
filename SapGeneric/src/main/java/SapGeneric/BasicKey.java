@@ -1,24 +1,23 @@
 package SapGeneric;
 
-import Conn.SapConn;
+import SapGenericEnuns.Keys;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
-import com.jacob.com.Variant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BasicKey {
     @Autowired
-    Standart standart;
+    SapMessenger sapMessenger;
 
     /**
      * @param value Value to send
      */
     public void sendKey(int value){
-        standart.isExisting("wnd[0]");
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", "wnd[0]").toDispatch());
-        standart.obj.invoke("sendVKey", value);
+        sapMessenger.isExisting("wnd[0]");
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", "wnd[0]").toDispatch());
+        sapMessenger.obj.invoke("sendVKey", value);
     }
 
     /**
@@ -46,25 +45,23 @@ public class BasicKey {
      * @param elementId GUI element ID
      */
     public void buttonSelect(String elementId){
-        standart.isExisting(elementId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", elementId).toDispatch());
-        Dispatch.call(standart.obj, "Select");
+        sapMessenger.isExisting(elementId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", elementId).toDispatch());
+        Dispatch.call(sapMessenger.obj, "Select");
     }
 
     /**
      * @param elementId GUI element ID
      */
     public void buttonPress(String elementId){
-        standart.isExisting(elementId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", elementId).toDispatch());
-        Dispatch.call(standart.obj, "Press");
+        sapMessenger.isExisting(elementId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", elementId).toDispatch());
+        Dispatch.call(sapMessenger.obj, "Press");
     }
 
     public void setFocus(String elementId){
-        standart.isExisting(elementId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", elementId).toDispatch());
-        Dispatch.call(standart.obj, "setFocus");
+        sapMessenger.isExisting(elementId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", elementId).toDispatch());
+        Dispatch.call(sapMessenger.obj, "setFocus");
     }
-
-
 }

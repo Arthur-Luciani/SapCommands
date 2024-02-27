@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class Sap {
 
     @Autowired
-    public Standart standart;
+    public SapMessenger sapMessenger;
 
     @Autowired
     public Basic basic;

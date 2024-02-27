@@ -1,6 +1,6 @@
 package SapGeneric;
 
-import ErrorHandler.ErrorCodes;
+import SapGenericEnuns.ErrorCodes;
 import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +11,10 @@ import java.math.BigDecimal;
 @Service
 public class Basic{
     @Autowired
-    Standart standart;
+    SapMessenger sapMessenger;
 
-    public void setStandart(Standart standart) {
-        this.standart = standart;
+    public void setStandart(SapMessenger sapMessenger) {
+        this.sapMessenger = sapMessenger;
     }
 
     @Autowired
@@ -26,9 +26,9 @@ public class Basic{
      * @return String value from GUI element
      */
     public String getText(String elementId){
-        standart.isExisting(elementId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", elementId).toDispatch());
-        return standart.obj.getPropertyAsString("text");
+        sapMessenger.isExisting(elementId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", elementId).toDispatch());
+        return sapMessenger.obj.getPropertyAsString("text");
     }
 
     /**
@@ -36,9 +36,9 @@ public class Basic{
      * @param value String value to put on GUI element
      */
     public void setText(String label, String value){
-        standart.isExisting(label);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", label).toDispatch());
-        standart.obj.setProperty("text", value);
+        sapMessenger.isExisting(label);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", label).toDispatch());
+        sapMessenger.obj.setProperty("text", value);
     }
 
     /**
@@ -111,9 +111,9 @@ public class Basic{
      * @param option Select option
      */
     public void select(String elementId, Boolean option){
-        standart.isExisting(elementId);
-        standart.obj = new ActiveXComponent(this.standart.session.invoke("FindById", elementId).toDispatch());
-        standart.obj.setProperty("selected", option);
+        sapMessenger.isExisting(elementId);
+        sapMessenger.obj = new ActiveXComponent(this.sapMessenger.session.invoke("FindById", elementId).toDispatch());
+        sapMessenger.obj.setProperty("selected", option);
     }
 
     /**
@@ -121,6 +121,6 @@ public class Basic{
      * @param id GUi ID element
      */
     public boolean isExisting(String id){
-        return standart.isExisting(id).equals(ErrorCodes.OK);
+        return sapMessenger.isExisting(id).equals(ErrorCodes.OK);
     }
 }

@@ -1,0 +1,20 @@
+Iniciar API
+	-> Criar máximo de sessões (1...6)
+	-> Criar pool connection //Verificar viabilidade
+
+	-> Manter LinkedList<Sap> 
+		Obs: Cada Sap representa uma Sessão
+	-> Criar Conn Pool of Sap
+	
+
+
+	("/getSap")
+	-> Retirar primeira sessão disponível da LinkedList
+	-> Atualizar conexão (método update em SapService )
+	-> Modificar nome para "used_ses[n]"
+
+	-> Retornar Sap obj
+
+	* Encontrar parâmteros para "/getSap" *
+	- Prioridade com escala (Ex: 1 a 5)
+ 

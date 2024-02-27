@@ -1,7 +1,6 @@
 package SapGeneric;
 
 public class SAPGuiClassName {
-
     public static String GuiTextClassName = "GuiTextField";
     public static String GuiCTextClassName = "GuiCTextField";
     public static String GuiPasswordClassName = "GuiPasswordField";
@@ -14,5 +13,4 @@ public class SAPGuiClassName {
     public static String GuiTabClassName  = "GuiTab";
     public static String GuiComboBoxClassName = "GuiComboBox";
     public static String GuiTableControlClassName ="GuiTableControl";
-
 }

@@ -1,4 +1,4 @@
-package ErrorHandler;
+package SapGenericEnuns;
 
 public enum ErrorCodes {
     NO_DATA_LOAD,

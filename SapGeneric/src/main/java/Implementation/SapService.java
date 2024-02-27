@@ -1,6 +1,5 @@
 package Implementation;
 
-import Conn.SapConn;
 import SapGeneric.Sap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.DefaultSingletonBeanRegistry;
@@ -31,6 +30,6 @@ public abstract  class SapService implements SapInterface{
 
     public void finish(){
         System.out.println("FinishMethod SapService");
-        sap.standart.disconnect();
+        sap.sapMessenger.disconnect();
     }
 }

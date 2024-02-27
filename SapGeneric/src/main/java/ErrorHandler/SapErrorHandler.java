@@ -1,12 +1,13 @@
 package ErrorHandler;
 
+import SapGenericEnuns.ErrorCodes;
+
 public class SapErrorHandler {
 
-    private static int noDataLoad = -2147483638;
-    private static int noFindByID = -2147220373;
-
-    private static int noFindByID2 = -2147159288;
-    private static int noConn = -2147220378;
+    private static final int noDataLoad = -2147483638;
+    private static final int noFindByID = -2147220373;
+    private static final int noFindByID2 = -2147159288;
+    private static final int noConn = -2147220378;
 
     public ErrorCodes getCode(int errorCode){
         if (errorCode == noDataLoad){

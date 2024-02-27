@@ -19,7 +19,7 @@ public class TableControl{
      */
 
     @Autowired
-    private Standart standart;
+    private SapMessenger sapMessenger;
 
     @Autowired
     private NumberConverter numberConverter;
@@ -31,15 +31,15 @@ public class TableControl{
      * @return The index of column in table matrix
      */
     public int getColumnIndex(String tableId, String columnName){
-        standart.isExisting(tableId);
+        sapMessenger.isExisting(tableId);
         ActiveXComponent currentObj;
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", tableId).toDispatch());
-        Dispatch dispatch = Dispatch.call(standart.obj, "Columns").toDispatch();
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", tableId).toDispatch());
+        Dispatch dispatch = Dispatch.call(sapMessenger.obj, "Columns").toDispatch();
         int count = Dispatch.call(dispatch, "count").toInt();
 
 
         for (int i = 0; i < count; i++) {
-            currentObj = new ActiveXComponent(standart.obj.invoke("Columns", i).toDispatch());
+            currentObj = new ActiveXComponent(sapMessenger.obj.invoke("Columns", i).toDispatch());
             String a = currentObj.getProperty("title").toString().trim();
             if(currentObj.getProperty("title").toString().trim().equals(columnName)){
                 return i;
@@ -53,9 +53,9 @@ public class TableControl{
      * @return Total rows of table includes invisible rows including empty rows
      */
     public int getTotalRows(String tableId){
-        standart.isExisting(tableId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", tableId).toDispatch());
-        ActiveXComponent scrollbarComponent = standart.obj.getPropertyAsComponent("VerticalScrollbar");
+        sapMessenger.isExisting(tableId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", tableId).toDispatch());
+        ActiveXComponent scrollbarComponent = sapMessenger.obj.getPropertyAsComponent("VerticalScrollbar");
         return scrollbarComponent.getPropertyAsInt("Maximum") +1;
     }
 
@@ -66,17 +66,17 @@ public class TableControl{
      * @return ActiveXComponent of cell object
      */
     public ActiveXComponent getCellTableControlObj(String tableId, String columnName, int row){
-        standart.isExisting(tableId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", tableId).toDispatch());
+        sapMessenger.isExisting(tableId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", tableId).toDispatch());
         int columnIndex = getColumnIndex(tableId, columnName);
-        int visibleRow = standart.obj.getPropertyAsInt("VisibleRowCount");
-        ActiveXComponent scrollbarComponent = standart.obj.getPropertyAsComponent("VerticalScrollbar");
+        int visibleRow = sapMessenger.obj.getPropertyAsInt("VisibleRowCount");
+        ActiveXComponent scrollbarComponent = sapMessenger.obj.getPropertyAsComponent("VerticalScrollbar");
         int multiplier = new BigDecimal((row/visibleRow)).setScale(RoundingMode.DOWN.ordinal()).intValue();
         int newActualScroll = (visibleRow * multiplier);
         scrollbarComponent.setProperty("Position", newActualScroll);
-        standart.isExisting(tableId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", tableId).toDispatch());
-        return new ActiveXComponent(standart.obj.invoke("getCell", row - newActualScroll, columnIndex).toDispatch());
+        sapMessenger.isExisting(tableId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", tableId).toDispatch());
+        return new ActiveXComponent(sapMessenger.obj.invoke("getCell", row - newActualScroll, columnIndex).toDispatch());
     }
 
     /**
@@ -86,7 +86,7 @@ public class TableControl{
      * @return String value of cell
      */
     public String getCellStringValue(String tableId, String columnName, int row){
-        standart.isExisting(tableId);
+        sapMessenger.isExisting(tableId);
         ActiveXComponent currentObj = getCellTableControlObj(tableId, columnName, row);
         return currentObj.getPropertyAsString("text");
     }
@@ -98,7 +98,7 @@ public class TableControl{
      * @param value String value to put on cell
      */
     public void setCellStringValue(String tableId, String columnName, int row, String value){
-        standart.isExisting(tableId);
+        sapMessenger.isExisting(tableId);
         ActiveXComponent currentObj = getCellTableControlObj(tableId, columnName, row);
         currentObj.setProperty("text", value);
     }
@@ -172,13 +172,13 @@ public class TableControl{
      * @param value Exact value to put on ComboBox
      */
     public void setCellComboBoxValue(String tableId, String columnName, int row, String value){
-        standart.isExisting(tableId);
+        sapMessenger.isExisting(tableId);
         ActiveXComponent currentObj = getCellTableControlObj(tableId, columnName, row);
         currentObj.setProperty("value", value);
     }
 
     public void setCellComboBoxKey(String tableId, String columnName, int row, String key){
-        standart.isExisting(tableId);
+        sapMessenger.isExisting(tableId);
         ActiveXComponent currentObj = getCellTableControlObj(tableId, columnName, row);
         currentObj.setProperty("key", key);
     }
@@ -204,9 +204,9 @@ public class TableControl{
      * @param option True or false
      */
     public void selectRow(String tableId, int row, Boolean option){
-        standart.isExisting(tableId);
-        standart.obj = new ActiveXComponent(this.standart.session.invoke("FindById", tableId).toDispatch());
-        ActiveXComponent currentObj = new ActiveXComponent(this.standart.obj.invoke("GetAbsoluteRow", row).toDispatch());
+        sapMessenger.isExisting(tableId);
+        sapMessenger.obj = new ActiveXComponent(this.sapMessenger.session.invoke("FindById", tableId).toDispatch());
+        ActiveXComponent currentObj = new ActiveXComponent(this.sapMessenger.obj.invoke("GetAbsoluteRow", row).toDispatch());
         currentObj.setProperty("selected",option);
     }
 

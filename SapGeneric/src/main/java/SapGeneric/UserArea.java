@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class UserArea {
 
     @Autowired
-    private Standart standart;
+    private SapMessenger sapMessenger;
 
     @Autowired
     private NumberConverter numberConverter;
@@ -22,9 +22,9 @@ public class UserArea {
      * @return ActiveXComponent of userArea children
      */
     public ActiveXComponent getChildren(String areaId){
-        standart.isExisting(areaId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", areaId).toDispatch());
-        return standart.obj.getPropertyAsComponent("Children");
+        sapMessenger.isExisting(areaId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", areaId).toDispatch());
+        return sapMessenger.obj.getPropertyAsComponent("Children");
     }
 
     /**
@@ -161,8 +161,8 @@ public class UserArea {
      * @return String value from element
      */
     public String getText(String areaId, int column, int row){
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById" ,getAreaId(areaId, column, row)).toDispatch());
-        return standart.obj.getPropertyAsString("Text");
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById" ,getAreaId(areaId, column, row)).toDispatch());
+        return sapMessenger.obj.getPropertyAsString("Text");
     }
 
     /**
@@ -190,9 +190,9 @@ public class UserArea {
      * @param row Row to select
      */
     public void selectRow(String areaId, int row) {
-        this.standart.isExisting(areaId);
-        this.standart.obj = new ActiveXComponent(this.standart.session.invoke("FindById", areaId).toDispatch());
-        this.standart.obj.setProperty("SelectedRows", String.valueOf(row));
+        this.sapMessenger.isExisting(areaId);
+        this.sapMessenger.obj = new ActiveXComponent(this.sapMessenger.session.invoke("FindById", areaId).toDispatch());
+        this.sapMessenger.obj.setProperty("SelectedRows", String.valueOf(row));
     }
 
     /**
@@ -200,11 +200,11 @@ public class UserArea {
      * @param rows Rows to select
      */
     public void selectRows(String areaId, ArrayList<Integer> rows){
-        standart.isExisting(areaId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", areaId).toDispatch());
+        sapMessenger.isExisting(areaId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", areaId).toDispatch());
         String arg = rows.toString();
         arg = arg.replace("[[]]","" );
-        standart.obj.setProperty("SelectedRows", arg);
+        sapMessenger.obj.setProperty("SelectedRows", arg);
     }
 
     /**

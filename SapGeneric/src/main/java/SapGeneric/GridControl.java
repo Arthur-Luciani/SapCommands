@@ -1,6 +1,5 @@
 package SapGeneric;
 
-import Conn.SapConn;
 import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
@@ -9,13 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 @Service
 public class GridControl{
 
     @Autowired
-    private Standart standart;
+    private SapMessenger sapMessenger;
     @Autowired
     private NumberConverter numberConverter;
 
@@ -24,9 +22,9 @@ public class GridControl{
      * @return Total rows of grid element
      */
     public int getTotalRows(String gridId){
-        standart.isExisting(gridId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
-        return standart.obj.getPropertyAsInt("RowCount"); //Need test
+        sapMessenger.isExisting(gridId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", gridId).toDispatch());
+        return sapMessenger.obj.getPropertyAsInt("RowCount"); //Need test
     }
 
     /**
@@ -36,9 +34,9 @@ public class GridControl{
      * @return String value of cell
      */
     public String getText(String gridId, String columnName, int row){
-        standart.isExisting(gridId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
-        return Dispatch.call(standart.obj, "GetCellValue", new Object[]{ row, columnName}).toString(); //Need test
+        sapMessenger.isExisting(gridId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", gridId).toDispatch());
+        return Dispatch.call(sapMessenger.obj, "GetCellValue", new Object[]{ row, columnName}).toString(); //Need test
     }
 
     /**
@@ -48,13 +46,13 @@ public class GridControl{
      * @param value String value to put on cell
      */
     public void setText(String gridId, String columnName, int row, String value){
-        standart.isExisting(gridId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
+        sapMessenger.isExisting(gridId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", gridId).toDispatch());
         Variant[] arg = new Variant[3];
         arg[0] = new Variant(row);
         arg[1] = new Variant(columnName);
         arg[2] = new Variant(value);
-        standart.obj.invoke("ModifyCell", arg);
+        sapMessenger.obj.invoke("ModifyCell", arg);
     }
 
     /**
@@ -135,9 +133,9 @@ public class GridControl{
      * Select all grid lines
      */
     public void selectAll(String gridId){
-        standart.isExisting(gridId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
-        standart.obj.invoke("SelectAll");
+        sapMessenger.isExisting(gridId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", gridId).toDispatch());
+        sapMessenger.obj.invoke("SelectAll");
     }
 
     /**
@@ -160,17 +158,17 @@ public class GridControl{
      * @param row Rows to select
      */
     public void selectRow(String gridId, int row) {
-        this.standart.isExisting(gridId);
-        this.standart.obj = new ActiveXComponent(this.standart.session.invoke("FindById", gridId).toDispatch());
-        this.standart.obj.setProperty("SelectedRows", String.valueOf(row));
+        this.sapMessenger.isExisting(gridId);
+        this.sapMessenger.obj = new ActiveXComponent(this.sapMessenger.session.invoke("FindById", gridId).toDispatch());
+        this.sapMessenger.obj.setProperty("SelectedRows", String.valueOf(row));
     }
 
     public void selectRow(String gridId, ArrayList<Integer> rows){
-        standart.isExisting(gridId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
+        sapMessenger.isExisting(gridId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", gridId).toDispatch());
         String arg = rows.toString();
         arg = arg.replace("[[]]","" );
-        standart.obj.setProperty("SelectedRows", arg);
+        sapMessenger.obj.setProperty("SelectedRows", arg);
     }
 
 
@@ -181,43 +179,43 @@ public class GridControl{
      * @param option True of false
      */
     public void setCheckBox(String gridId, String columnName, int row, boolean option){
-        standart.isExisting(gridId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
+        sapMessenger.isExisting(gridId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", gridId).toDispatch());
         Variant[] arg = new Variant[3];
         arg[0] = new Variant(row);
         arg[1] = new Variant(columnName);
         arg[2] = new Variant(option);
-        standart.obj.invoke("ModifyCheckBox", arg);
+        sapMessenger.obj.invoke("ModifyCheckBox", arg);
     }
 
     public void insertRow(String gridId, int rowNumber) {
-        standart.isExisting(gridId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
-        standart.obj.invoke("insertRows", String.valueOf(rowNumber));
+        sapMessenger.isExisting(gridId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", gridId).toDispatch());
+        sapMessenger.obj.invoke("insertRows", String.valueOf(rowNumber));
     }
 
     public void deleteRow(String gridId, int rowNumber) {
-        standart.isExisting(gridId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
-        standart.obj.invoke("deleteRows", String.valueOf(rowNumber));
+        sapMessenger.isExisting(gridId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", gridId).toDispatch());
+        sapMessenger.obj.invoke("deleteRows", String.valueOf(rowNumber));
     }
 
     public void pressToolBarBtn (String gridId, int btn) {
-        standart.isExisting(gridId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
-        standart.obj.invoke("pressToolbarButton", String.valueOf(btn));
+        sapMessenger.isExisting(gridId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", gridId).toDispatch());
+        sapMessenger.obj.invoke("pressToolbarButton", String.valueOf(btn));
     }
 
     public void clearSelection(String gridId) {
-        standart.isExisting(gridId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
-        standart.obj.invoke("ClearSelection");
+        sapMessenger.isExisting(gridId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", gridId).toDispatch());
+        sapMessenger.obj.invoke("ClearSelection");
     }
 
     public void clickCell(String gridId, int row){
-        standart.isExisting(gridId);
-        standart.obj = new ActiveXComponent(standart.session.invoke("FindById", gridId).toDispatch());
-        standart.obj.setProperty("CurrentCellRow", row);
+        sapMessenger.isExisting(gridId);
+        sapMessenger.obj = new ActiveXComponent(sapMessenger.session.invoke("FindById", gridId).toDispatch());
+        sapMessenger.obj.setProperty("CurrentCellRow", row);
     }
 
 

@@ -1,6 +1,6 @@
 package com.SapController;
 
-import SapGeneric.Keys;
+import SapGenericEnuns.Keys;
 import SapGeneric.Sap;
 
 public class ControllerTest {
