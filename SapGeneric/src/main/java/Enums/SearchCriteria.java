@@ -1,4 +1,4 @@
-package EnumSapController;
+package Enums;
 
 public enum SearchCriteria {
     EQUALS,

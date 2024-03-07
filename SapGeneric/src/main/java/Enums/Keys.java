@@ -1,4 +1,4 @@
-package SapGenericEnuns;
+package Enums;
 
 public enum Keys {
     ENTER,

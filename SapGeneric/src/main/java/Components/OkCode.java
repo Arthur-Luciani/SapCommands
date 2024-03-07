@@ -1,15 +1,18 @@
-package SapGeneric;
+package Components;
 
+import Connection.SapMessenger;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Variant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
 public class OkCode{
 
-    @Autowired
-    public SapMessenger sapMessenger;
+    private SapMessenger sapMessenger;
+
+    public OkCode(SapMessenger sapMessenger) {
+        this.sapMessenger = sapMessenger;
+    }
 
     /**
      * @param value Transaction name

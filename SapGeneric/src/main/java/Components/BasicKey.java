@@ -1,15 +1,16 @@
-package SapGeneric;
+package Components;
 
-import SapGenericEnuns.Keys;
+import Connection.SapMessenger;
+import Enums.Keys;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
 public class BasicKey {
-    @Autowired
     SapMessenger sapMessenger;
+
+    public BasicKey(SapMessenger sapMessenger) {
+        this.sapMessenger = sapMessenger;
+    }
 
     /**
      * @param value Value to send

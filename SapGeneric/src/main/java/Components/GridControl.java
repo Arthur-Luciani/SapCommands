@@ -1,21 +1,23 @@
-package SapGeneric;
+package Components;
 
+import Connection.SapMessenger;
 import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-@Service
 public class GridControl{
 
-    @Autowired
-    private SapMessenger sapMessenger;
+    private final SapMessenger sapMessenger;
     @Autowired
     private NumberConverter numberConverter;
+
+    public GridControl(SapMessenger sapMessenger) {
+        this.sapMessenger = sapMessenger;
+    }
 
     /**
      * @param gridId GUI ID element

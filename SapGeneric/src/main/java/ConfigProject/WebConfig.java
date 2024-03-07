@@ -3,7 +3,7 @@ package ConfigProject;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-@ComponentScan({"Connection", "Utils", "ErrorHandler", "SapGeneric"})
+@ComponentScan({"Connection", "Utils", "ErrorHandler", "Components"})
 @Configuration
 public class WebConfig {
     /*@Bean("standart")

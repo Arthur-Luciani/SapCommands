@@ -1,11 +1,14 @@
 package com.SapController;
 
-import SapGenericEnuns.Keys;
-import SapGeneric.Sap;
+import Controller.Sap;
+import Enums.Keys;
 
 public class ControllerTest {
 
-    Sap sap = new Sap();
+    Sap sap = new Sap(1);
+
+    public ControllerTest() throws Exception {
+    }
 
     public void testOk(){
 

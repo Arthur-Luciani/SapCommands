@@ -1,6 +1,5 @@
 package Connection;
 
-import SapGeneric.SapMessenger;
 
 public interface MessengerPool {
     SapMessenger getMessenger();

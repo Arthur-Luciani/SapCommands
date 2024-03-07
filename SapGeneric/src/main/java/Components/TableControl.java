@@ -1,5 +1,6 @@
-package SapGeneric;
+package Components;
 
+import Connection.SapMessenger;
 import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
@@ -10,19 +11,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashSet;
 
-@Service
 public class TableControl{
-
-    /*
-        Future ideas:
-            -ComboBoxSelection
-     */
-
-    @Autowired
-    private SapMessenger sapMessenger;
-
+    private final SapMessenger sapMessenger;
     @Autowired
     private NumberConverter numberConverter;
+
+    public TableControl(SapMessenger sapMessenger) {
+        this.sapMessenger = sapMessenger;
+    }
 
     /**
      * Returns index of column

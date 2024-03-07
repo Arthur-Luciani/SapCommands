@@ -1,7 +1,7 @@
 package Connection;
 
-import ErrorHandler.SapErrorHandler;
-import SapGenericEnuns.ErrorCodes;
+import Exceptions.ExceptionCauses;
+import Exceptions.SapException;
 import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComException;
@@ -11,6 +11,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+
+import static Exceptions.ExceptionCauses.*;
 
 
 /**
@@ -25,6 +27,7 @@ public class SapMessenger {
 
     @Autowired
     NumberConverter numberConverter;
+    private final int sessionNumber;
     public ActiveXComponent obj;
     public ActiveXComponent parentSession;
     public ActiveXComponent session;
@@ -33,7 +36,8 @@ public class SapMessenger {
 
     private static final String STATUS_BAR_ID = "wnd[0]/sbar";
 
-    public SapMessenger(ActiveXComponent initSes) {
+    public SapMessenger(ActiveXComponent initSes, int sessionNumber) {
+        this.sessionNumber = sessionNumber;
         this.parentSession = initSes;
         this.session = new ActiveXComponent(parentSession.invoke("Children",0).toDispatch());
     }
@@ -45,7 +49,7 @@ public class SapMessenger {
      */
     private ActiveXComponent updateSession(String Id) {
         try {
-            new ActiveXComponent(parentSession.invoke("FindById", "wnd["+Id.charAt(4)+"]").toDispatch());
+            return new ActiveXComponent(parentSession.invoke("FindById", "wnd["+Id.charAt(4)+"]").toDispatch());
         } catch (Exception ignored) {}
         return session;
     }
@@ -55,18 +59,19 @@ public class SapMessenger {
      * @param Id Id to analyze
      * @return Result of check as ErrorCode
      */
-    public ErrorCodes isExisting(String Id) {
+    public ExceptionCauses isExisting(String Id) {
         long startTime = System.nanoTime();
         session = updateSession(Id);
-        ErrorCodes statusCode = ErrorCodes.DEFAULT;
-        List<ErrorCodes> errors = List.of(ErrorCodes.DEFAULT, ErrorCodes.NO_DATA_LOAD);
+        ExceptionCauses statusCode = DEFAULT;
+        List<ExceptionCauses> errors = List.of(DEFAULT, NO_DATA_LOAD);
 
         while (errors.contains(statusCode)) {
             try {
                 new ActiveXComponent(session.invoke("FindById", Id).toDispatch());
-                statusCode = ErrorCodes.OK;
+                statusCode = OK;
             } catch (ComException e) {
-                statusCode = new SapErrorHandler().getCode(e.getHResult());
+                statusCode = new SapException(e.getMessage(), e.getHResult()).getExCode();
+
             }
         }
         return checkErrorCode(statusCode, Id, startTime);
@@ -78,31 +83,34 @@ public class SapMessenger {
      * @param startTime Start time from isExisting method
      * @return Correct ErrorCode
      */
-    private ErrorCodes checkErrorCode(ErrorCodes errorCode, String Id, long startTime) {
+    private ExceptionCauses checkErrorCode(ExceptionCauses errorCode, String Id, long startTime) {
         switch (errorCode) {
             case NO_FIND_BY_ID -> {
                 logger.error("No find by Id");
-                return ErrorCodes.NO_FIND_BY_ID;
+                if (!updatedConn()) {
+                    return NO_FIND_BY_ID;
+                }
+                return isExisting(Id);
             }
             case NO_CONN -> {
                 logger.error("No connection");
-                return ErrorCodes.NO_CONN;
+                return NO_CONN;
             }
             case NO_DATA_LOAD -> {
                 logger.error("No data load");
                 logger.debug("IsExisting method fails while waiting SAP data");
-                return ErrorCodes.NO_DATA_LOAD;
+                return NO_DATA_LOAD;
             }
             case OK -> {
-                if (verifyStatusBar().equals(ErrorCodes.OK)) {
+                if (verifyStatusBar().equals(OK)) {
                     logger.info(((System.nanoTime() - startTime) / 1000000) + " isExisting execution time");
-                    return ErrorCodes.OK;
+                    return OK;
                 }
                 return isExisting(Id);
             }
             default -> {
                 logger.error("No mapped error");
-                return ErrorCodes.NO_MAPPED;
+                return NO_MAPPED;
             }
         }
     }
@@ -121,18 +129,33 @@ public class SapMessenger {
      * Check if it has any Warning or Alert that can interrupt the automation and clean it
      * @return  OK if it has no interruptions, DEFAULT if it has some interruptions
      */
-    private ErrorCodes verifyStatusBar() {
+    private ExceptionCauses verifyStatusBar() {
          ActiveXComponent statusBar = getStatusBar();
         if(statusBar.getPropertyAsBoolean("MessageAsPopup")) {
             obj.invoke("sendVKey", 12);
-            return ErrorCodes.DEFAULT;
+            return DEFAULT;
         }
         String messageType = statusBar.getPropertyAsString("MessageType");
         if (messageType.equals("W")) {
             obj.invoke("sendVKey", 0);
-            return ErrorCodes.DEFAULT;
+            return DEFAULT;
         }
-        return ErrorCodes.OK;
+        return OK;
+    }
+
+    private boolean updatedConn() {
+        try {
+            session.getPropertyAsComponent("Info");
+        } catch (Exception e) {
+            try {
+                this.parentSession = SapConnector.getSession(sessionNumber);
+            } catch (SapException e1) {
+                System.out.println(e1.getMessage());
+            }
+            this.session = new ActiveXComponent(parentSession.invoke("Children",0).toDispatch());
+            return true;
+        }
+        return false;
     }
 
     public void disconnect() {

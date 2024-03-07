@@ -1,21 +1,22 @@
-package SapGeneric;
+package Components;
 
+import Connection.SapMessenger;
 import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Variant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-@Service
 public class UserArea {
 
-    @Autowired
-    private SapMessenger sapMessenger;
-
+    private final SapMessenger sapMessenger;
     @Autowired
     private NumberConverter numberConverter;
+
+    public UserArea(SapMessenger sapMessenger) {
+        this.sapMessenger = sapMessenger;
+    }
 
     /**
      * @param areaId GUI element ID

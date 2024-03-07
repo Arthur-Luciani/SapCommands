@@ -1,19 +1,22 @@
-package SapGeneric;
+package Components;
 
-import EnumSapController.SearchCriteria;
-import EnumSapController.SearchOrder;
+import Connection.SapMessenger;
+import Enums.SearchCriteria;
+import Enums.SearchOrder;
 import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Variant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
 public class Tree {
-    @Autowired
-    SapMessenger sapMessenger;
+
+    private final SapMessenger sapMessenger;
     @Autowired
     NumberConverter numberConverter;
+
+    public Tree(SapMessenger sapMessenger) {
+        this.sapMessenger = sapMessenger;
+    }
 
     /**
      * @param treeId GUI element ID
@@ -211,10 +214,5 @@ public class Tree {
         }
         return -1;
     }
-
-
-
-
-
 }
 

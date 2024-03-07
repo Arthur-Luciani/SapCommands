@@ -1,6 +1,6 @@
 package Implementation;
 
-import SapGeneric.Sap;
+import Controller.Sap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.DefaultSingletonBeanRegistry;
 import org.springframework.context.ApplicationContext;

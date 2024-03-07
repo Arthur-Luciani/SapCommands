@@ -1,16 +1,17 @@
-package SapGeneric;
+package Components;
 
+import Connection.SapMessenger;
 import com.jacob.activeX.ActiveXComponent;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
 public class ComboBox{
-    @Autowired
-    private SapMessenger sapMessenger;
+    private final SapMessenger sapMessenger;
+
+    public ComboBox(SapMessenger sapMessenger) {
+        this.sapMessenger = sapMessenger;
+    }
 
     /**
-     * Select some option in combobox
+     * Select some option in combo box
      * @param cbId GUI element ID
      * @param item2Select Select option
      */

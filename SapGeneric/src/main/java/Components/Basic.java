@@ -1,25 +1,22 @@
-package SapGeneric;
+package Components;
 
-import SapGenericEnuns.ErrorCodes;
+import Connection.SapMessenger;
 import Utils.NumberConverter;
 import com.jacob.activeX.ActiveXComponent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
-@Service
+import static Exceptions.ExceptionCauses.OK;
+
 public class Basic{
-    @Autowired
-    SapMessenger sapMessenger;
-
-    public void setStandart(SapMessenger sapMessenger) {
-        this.sapMessenger = sapMessenger;
-    }
-
+    private final SapMessenger sapMessenger;
     @Autowired
     NumberConverter numberConverter;
 
+    public Basic(SapMessenger sapMessenger) {
+        this.sapMessenger = sapMessenger;
+    }
 
     /**
      * @param elementId GUI ID element
@@ -121,6 +118,6 @@ public class Basic{
      * @param id GUi ID element
      */
     public boolean isExisting(String id){
-        return sapMessenger.isExisting(id).equals(ErrorCodes.OK);
+        return sapMessenger.isExisting(id).equals(OK);
     }
 }
